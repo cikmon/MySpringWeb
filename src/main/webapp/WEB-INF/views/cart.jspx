@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div id="basket" xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     version="2.0">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+
+    <spring:message code="menu_header_text" var="menuHeaderText"/>
+    <spring:message code="menu_add_product" var="menuAddProduct"/>
+    <spring:url value="/products?form" var="addProductUrl"/>
+
+    <spring:message code="label_login" var="labelLogin"/>
+    <spring:url var="loginUrl" value="/j_spring_security_check" />
+
+    <spring:url var="logoutUrl" value="/j_spring_security_logout" />
+    <spring:message code="label_logout" var="labelLogout"/>
+   <!-- <h3>${menuHeaderText}</h3> -->
+    <script >
+        function sumCart() {
+            var sumProducts = 0;
+            var storedCart = new Array;
+            if (sessionStorage.getItem("basket")==""|JSON.parse(sessionStorage.getItem("basket"))==null) {
+            } else {
+                storedCart = JSON.parse(sessionStorage.getItem("basket"));
+                sumProducts=storedCart.length;
+            }
+            document.getElementById("sumCart").innerHTML =String(sumProducts);
+        }
+        function sumPrice() {
+            var sumPrice = 0;
+            var storedCart = new Array;
+            if (sessionStorage.getItem("basket")==""|JSON.parse(sessionStorage.getItem("basket"))==null) {
+            } else {
+                storedCart = JSON.parse(sessionStorage.getItem("basket"));
+                storedCart.forEach(function (item, index, array) {
+                    sumPrice+=Number(item.price);
+                });
+            }
+            document.getElementById("sumPrice").innerHTML = "$ "+String(sumPrice);
+        }
+    </script>
+        <div id="login1">
+                <table>
+                    <div id="formcart">
+                    <a href="${contextPath}/products/cartList">Cart reform</a>
+                    </div>
+                </table>
+        </div>
+    <div>  Products in cart</div>
+    <div id="sumCart">  <h4>New Products</h4></div>
+    <div >  Total product cost</div>
+    <div id="sumPrice"> <h4>New Products2</h4></div>
+    <script>
+        sumCart();
+        sumPrice();
+    </script>
+</div>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <spring:message code="label_user_login" var="labelUserLogin"/>
+    <spring:message code="label_user_password" var="labelUserPassword"/>
+    <spring:message code="label_user_confirmPassword" var="labelUserConfirmPassword"/>
+
+
+
+
+    <h2>Registration</h2>
+
+    <div id="registration">
+        <form:form modelAttribute="user" id="regidtrationForm" method="post"
+                   enctype="multipart/form-data">
+
+        <c:if test="${not empty message}">
+                <div id="message" class="${message.type}">${message.message}</div>
+            </c:if>
+
+            <form:label path="username">
+                ${labelUserLogin}*
+            </form:label>
+            <form:input path="username" />
+            <div>
+                <form:errors path="username" cssClass="error" />
+            </div>
+            <p/>
+
+            <form:label path="password">
+                ${labelUserPassword}*
+            </form:label>
+            <form:input type="password" path="password" />
+            <div>
+                <form:errors path="password" cssClass="error" />
+            </div>
+            <p/>
+
+            <form:label path="confirmPassword">
+                ${labelUserConfirmPassword}*
+            </form:label>
+            <form:input type="password" path="confirmPassword" />
+            <div>
+                <form:errors path="confirmPassword" cssClass="error" />
+            </div>
+            <p/>
+
+            <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">Save</span>
+            </button>
+            <button type="reset" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">Reset</span>
+            </button>
+        </form:form>
+    </div>
+</div>

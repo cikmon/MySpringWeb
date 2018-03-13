@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <script >
+        function populateStorage1() {
+
+                var masId=new Array();
+                var setId=new Set();
+                var storedCart = new Array;
+                if (sessionStorage.getItem("basket")==""|JSON.parse(sessionStorage.getItem("basket"))==null) {
+                } else {
+                    storedCart = JSON.parse(sessionStorage.getItem("basket"));
+                    storedCart.forEach(function (item, index, array) {
+                       setId.add(item.id);
+                    });
+                    setId.forEach(function(item, sameItem, setId) {
+                      var id=new Object();
+                      id.id=item;
+                       masId.push(id);
+                     //  alert(item);
+                    });
+                }
+            var ret2=JSON.stringify(masId);
+            var m3=new Object();
+            m3.userName=ret2;
+            var url = "http://localhost:8080/products/cartList";
+          /*
+            $.ajax({
+                url: url,
+                method: "get",
+                data:m3
+            });
+            */
+           // alert("cart post end");
+           document.getElementById("e34").value = ret2;
+        }
+
+    </script>
+    <div>
+        <table id="list"><tr>ttt<td/></tr></table>
+
+    </div>
+
+        <div id="templatemo_wrapper">
+            <div id="templatemo_main">
+                <div id="content" class="float_r">
+                    <h1>Cart products</h1>
+                    <c:forEach items="${products}" var="product">
+                        <div class="product_box">
+
+                            <a href="${showProductUrl}/${product.id}"><img src="products/images/product/01.jpg"
+                                                                           width="200" height="200" alt="Image 01" /></a>
+                            <h3>${product.name}</h3>
+                            <p class="product_price">$ ${product.price}</p>
+                            <a href="${showProductUrl}/${product.id}" class="detail">Detail</a>
+                            <input type="hidden" id="customInput" data-value = "${product.id}" />
+                        </div>
+                    </c:forEach>
+                </div>
+
+                <div class="cleaner"></div>
+            </div>
+        </div>
+
+
+    <div id="login">
+        <form name="loginForm" action="${contextPath}/products/cartList" method="get">
+            <table>
+                <caption align="left">Login:</caption>
+                <tr>
+                    <td><input id="e34" type="hidden" name="idJson" value="ty"/></td>
+                </tr>
+
+                <tr>
+                    <td  align="left"><input name="submit" type="submit"
+                                             value="Login"/>
+
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+
+
+
+
+
+<div id="123"></div>
+<script>
+    populateStorage1();
+</script>
+</div>

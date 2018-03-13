@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     xmlns:joda="http://www.joda.org/joda/time/tags"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="label_product_info" var="labelProductInfo"/>
+    <spring:message code="label_product_name" var="labelProductName"/>
+    <spring:message code="label_product_price" var="labelProductPrice"/>
+    <spring:message code="label_product_availability" var="labelProductAvailability"/>
+    <spring:message code="label_product_model" var="labelProductModel"/>
+    <spring:message code="label_product_manufacturer" var="labelProductManufaturer"/>
+    <spring:message code="label_product_description" var="labelProductDescription"/>
+    <spring:message code="label_product_update" var="labelProductUpdate"/>
+    <spring:message code="label_product_photo" var="labelProductPhoto"/>
+
+    <spring:url value="/products/photo" var="productPhotoUrl"/>
+    <spring:url value="/products" var="editProductUrl"/>
+  
+    <div id="contactInfo">
+
+        <c:if test="${not empty message}">
+            <div id="message" class="${message.type}">${message.message}</div>
+        </c:if>
+<!--
+        <table>
+            <tr>
+                <td>${labelContactFirstName}</td>
+                <td>${contact.firstName}</td>
+            </tr>
+            <tr>
+                <td>${labelContactLastName}</td>
+                <td>${contact.lastName}</td>
+            </tr>
+            <tr>
+                <td>${labelContactBirthDate}</td>
+                <td><joda:format value="${contact.birthDate}" pattern="${dateFormatPattern}"/></td>
+            </tr>
+            <tr>
+                <td>${labelContactDescription}</td>
+                <td>${contact.description}</td>
+            </tr>
+            <tr>
+                <td>${labelContactPhoto}</td>
+                <td><img src="${contactPhotoUrl}/${contact.id}"></img></td>
+            </tr>
+        </table>
+
+        <a href="${editContactUrl}/${contact.id}?form">${labelContactUpdate}</a>
+        -->
+
+        <div id="templatemo_wrapper">
+
+            <div id="content" class="float_r">
+                <c:if test="${!empty product}">
+                <h1>${product.name}</h1>
+
+                <div class="content_half float_l">
+                                                                                 
+                    <a href="images/product/03.jpg"><img src="images/product/03.jpg"
+                                                      width="200" height="200" alt="Image 01" /></a>
+
+                    <h5>${labelProductDescription}</h5>
+                    <p>Station Shop is free website template by templatemo for ecommerce websites or online stores. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec varius sapien fringilla velit sodales consectetur. Nam nibh lacus, tempor at ornare eu, condimentum a ligula. Mauris pellentesque tincidunt ipsum vitae eleifend. Sed condimentum nisl sed orci ullamcorper fermentum. Validate <a href="http://validator.w3.org/check?uri=referer" rel="nofollow"><strong>XHTML</strong></a> &amp; <a href="http://jigsaw.w3.org/css-validator/check/referer" rel="nofollow"><strong>CSS</strong></a>.</p>
+
+                </div>
+                <div class="content_half float_r">
+                    <table>
+                        <tr>
+                            <td height="30" width="160">${labelProductPrice}:</td>
+                            <td>$ ${product.price}</td>
+                        </tr>
+                        <tr>
+                            <td height="30">${labelProductAvailability}:</td>
+
+                            <c:if test="${product.availability==0}">
+                            <td>Not available</td>
+                            </c:if>
+
+                            <c:if test="${product.availability==1}">
+                                <td>Under the order</td>
+                            </c:if>
+                            <c:if test="${product.availability==2}">
+                                <td>The delivery is expected</td>
+                            </c:if>
+                            <c:if test="${product.availability==3}">
+                                <td>In stock</td>
+                            </c:if>
+
+                        </tr>
+                        <tr>
+                            <td height="30">${labelProductModel}:</td>
+                            <td>${product.productModel}</td>
+                        </tr>
+                        <tr>
+                            <td height="30">${labelProductManufaturer}:</td>
+                            <td>${product.manufacturer}</td>
+                        </tr>
+                        <tr><td height="30">Quantity</td><td><input type="text" value="1" style="width: 20px; text-align: right" /></td></tr>
+                    </table>
+                    <div class="cleaner h20"></div>
+                    <a href="shoppingcart.html" class="add_to_card">Add to Cart</a>
+
+                </div>
+                <div class="cleaner h30"></div>
+
+                <div class="cleaner h50"></div>
+                </c:if>
+
+            </div>
+
+        </div> <!-- END of templatemo_main -->
+    </div>
+    <sec:authorize access="hasRole('ROLE_USER')">
+    <a href="${editProductUrl}/${product.id}?form">${labelProductUpdate}</a>
+    </sec:authorize>
+
+</div>

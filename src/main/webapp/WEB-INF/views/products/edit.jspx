@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:form="http://www.springframework.org/tags/form"
+     version="2.0">
+
+    <script type="text/javascript">
+        $(function(){
+            $("#contactDescription").ckeditor(
+                    {
+                        toolbar : 'Basic',
+                        uiColor : '#CCCCCC'
+                    }
+            );
+        });
+    </script>
+
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <spring:message code="label_product_info" var="labelProductInfo"/>
+    <spring:message code="label_product_name" var="labelProductName"/>
+    <spring:message code="label_product_price" var="labelProductPrice"/>
+    <spring:message code="label_product_availability" var="labelProductAvailability"/>
+    <spring:message code="label_product_model" var="labelProductModel"/>
+    <spring:message code="label_product_manufacturer" var="labelProductManufaturer"/>
+    <spring:message code="label_product_description" var="labelProductDescription"/>
+    <spring:message code="label_product_new" var="labelProductNew"/>
+    <spring:message code="label_product_update" var="labelProductUpdate"/>
+    <spring:message code="label_product_photo" var="labelProductPhoto"/>
+
+    <spring:eval expression="product.id == null ? labelProductNew:labelProductUpdate"
+                 var="formTitle"/>
+
+    <h2>${formTitle}</h2>
+
+    <div id="contactUpdate">
+        <form:form modelAttribute="product" id="contactUpdateForm" method="post"
+                   enctype="multipart/form-data">
+
+        <c:if test="${not empty message}">
+                <div id="message" class="${message.type}">${message.message}</div>
+            </c:if>
+
+            <form:label path="name">
+                ${labelProductName}*
+            </form:label>
+            <form:input path="name" />
+            <div>
+                <form:errors path="name" cssClass="error" />
+            </div>
+            <p/>
+
+            <form:label path="price">
+                ${labelProductPrice}*
+            </form:label>
+            <form:input path="price" />
+            <div>
+                <form:errors path="price" cssClass="error" />
+            </div>
+            <p/>
+
+            <form:label path="availability">
+                ${labelProductAvailability}*
+            </form:label>
+            <form:input path="availability" />
+            <div>
+                <form:errors path="availability" cssClass="error" />
+            </div>
+            <p/>
+
+            <form:label path="productModel">
+                ${labelProductModel}*
+            </form:label>
+            <form:input path="productModel" />
+            <div>
+                <form:errors path="productModel" cssClass="error" />
+            </div>
+            <p/>
+
+            <form:label path="manufacturer">
+                ${labelProductManufaturer}*
+            </form:label>
+            <form:input path="manufacturer" />
+            <div>
+                <form:errors path="manufacturer" cssClass="error" />
+            </div>
+            <p/>
+
+            <form:label path="description">
+                ${labelProductDescription}
+            </form:label>
+            <form:textarea cols="60" rows="8" path="description" id="contactDescription"/>
+            <div>
+                <form:errors path="description" cssClass="error" />
+            </div>
+            <p/>
+
+            <label for="file">
+                ${labelProductPhoto}
+            </label>
+            <input name="file" type="file"/>
+            <p/>
+
+            <form:hidden path="version" />
+
+            <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">Save</span>
+            </button>
+            <button type="reset" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">Reset</span>
+            </button>
+
+
+        </form:form>
+        <form:form action="${product.id}?delete">
+        <button type="submit">Delete this product</button>
+        </form:form>
+    </div>
+</div>

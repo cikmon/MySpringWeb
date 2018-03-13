@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="MySpringWeb:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="contact-webapp-4.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="MySpringWeb:war exploded" />
+    </root>
+  </artifact>
+</component>
